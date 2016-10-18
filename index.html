@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>PRM2 - TD1 - Analyse répartition langues</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css" media="all">
+</head>
+<body>
+
+<div id="container"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="assets/libraries/PapaParse-4.1.2/papaparse.min.js"></script>
+<script src="assets/data/data.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/mapdata/countries/fr/custom/fr-all-all-mainland.js"></script>
+
+<script>
+
+    $('#container').highcharts('Map', {
+        title: {
+            text: null
+        },
+        exporting: {
+            enabled: false
+        },
+        chart: {
+            backgroundColor: "rgba(255,255,255, 0)"
+        },
+        credits: {
+            enabled: false
+        },
+        colorAxis: {
+            min: 0,
+            max: 100,
+            align: 'center',
+            minColor: '#66ff99',
+            maxColor: '#003311'
+        },
+        series: [{
+            data: data,
+            cursor: 'pointer',
+            mapData: Highcharts.maps['countries/fr/custom/fr-all-all-mainland'],
+            joinBy: 'hc-key',
+            name: 'Répartition',
+            states: {
+                hover: {
+                    color: '#333333'
+                }
+            },
+            dataLabels: {
+                enabled: false,
+                format: '{point.name}%'
+            }
+        }]
+    });
+
+    /*$('#container').highcharts().series[0].points[0].update(1000, true);*/
+
+    Papa.parse("http://localhost/PRM2TD1/assets/data/Villes_propres.csv", {
+        download: true,
+        header: true,
+        delimiter: ",",
+        complete: function(results) {
+
+            var departements;
+
+            results.data.forEach(function(element){
+                var currentRegexp = new RegExp("^GRAN|^VA");
+                if(currentRegexp.test(element.ville_nom)){
+                    console.log(element.ville_nom);
+                }
+            });
+
+        }
+    });
+
+
+</script>
+</body>
+</html>

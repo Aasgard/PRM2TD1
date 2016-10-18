@@ -1,0 +1,13 @@
+body, html{
+    height: 100%;
+}
+
+body{
+    background-color: blue;
+    overflow: hidden;
+    background: url('../images/weather.png');
+}
+
+#container{
+    height: 100%;
+}
