@@ -66,13 +66,21 @@
         delimiter: ",",
         complete: function(results) {
 
-            var departements;
+            var departements = [];
 
             results.data.forEach(function(element){
                 var currentRegexp = new RegExp("^GRAN|^VA");
-                if(currentRegexp.test(element.ville_nom)){
-                    console.log(element.ville_nom);
+                /*if(currentRegexp.test(element.ville_nom)){
+                    if(!departements.contains(element.ville_departement)){
+                        departements[element.ville_departement] = "Ok";
+                    }
+                }*/
+
+                if(departements[element.ville_departement] == undefined){
+                    departements[element.ville_departement] = element.ville_departement;
                 }
+
+                console.log(departements);
             });
 
         }
